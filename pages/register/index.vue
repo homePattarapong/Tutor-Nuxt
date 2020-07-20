@@ -40,24 +40,12 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-dialog
-      v-model="dialog"
-      max-width="290"
-    >
-      <v-card>
-        <v-card-title>คำเตือน</v-card-title>
-        <v-card-text v-html="errorMsg">
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-        dialog:false,
-        errorMsg:'Test',
       form: {
         firstname: "",
         lastname: "",
@@ -70,26 +58,28 @@ export default {
       this.form.type = type;
     },
     validate() {
-        let validated = true;
-        const errors = [];
-        const validatorField = [
-            'firstname',
-            'lastname'
-        ];
-        validatorField.forEach((field)=>{
-            if(this.form[field] == ''){
-                validated =false;
-                errors.push(`กรุณาใส่ข้อมูล ${field}`);
-            }
-        });
-        if(!validated){
-            this.errorMsg = errors.map((error)=> error+'<br/>').join('');
-            this.dialog = true;
+      let validated = true;
+      const errors = [];
+      const validatorField = ["firstname", "lastname"];
+      validatorField.forEach(field => {
+        if (this.form[field] == "") {
+          validated = false;
+          errors.push(`กรุณาใส่ข้อมูล ${field}`);
         }
-        return validated;
+      });
+      if (!validated) {
+        this.dialog = true;
+        this.$store.dispatch('setDialog',{
+          isShow:true,
+          title:'คำเตือน',
+          message:errors.map(error => error + "<br/>").join("")
+        })
+      }
+      return validated;
     },
     next() {
       if (this.validate()) {
+        this.$store.dispatch("setRegister", this.form);
         this.$router.push("/register/step2");
       }
     }
@@ -115,6 +105,7 @@ img {
 .v-form {
   padding: 0 10px;
 }
+
 .type-group {
   p {
     margin-bottom: 0;
