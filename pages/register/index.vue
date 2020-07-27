@@ -6,7 +6,7 @@
     <v-container class="pt-0 pb-0">
       <v-row>
         <v-col cols="12">
-          <div class="mt-8 text-primary text-title text-center">Step 1 of 12</div>
+          <div class="mt-8 text-primary text-title text-center">Step 1 of 2</div>
         </v-col>
         <v-col cols="12" class="text-center pt-0 pb-0">
           <img class="image-cropper" src="~/assets/images/profile.jpg" alt width="155" />
@@ -47,9 +47,9 @@ export default {
   data() {
     return {
       form: {
-        firstname: "",
-        lastname: "",
-        type: 1
+        firstname: this.$store.getters.getRegister.firstname,
+        lastname: this.$store.getters.getRegister.lastname,
+        type: this.$store.getters.getRegister.type,
       }
     };
   },

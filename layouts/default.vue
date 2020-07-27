@@ -30,6 +30,9 @@ export default {
 .text-primary {
   color: #1a56be;
 }
+.text-main{
+  font-size: 20px;
+}
 .text-title {
   font-size: 20px;
   font-weight: bold;
